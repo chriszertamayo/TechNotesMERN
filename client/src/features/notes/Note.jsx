@@ -3,12 +3,10 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 import { useSelector } from "react-redux";
-import { selectUserById } from "./usersApiSlice";
-
-import React from "react";
+import { selectNoteById } from "./notesApiSlice";
 
 const Note = ({ noteId }) => {
-  const note = useSelector((state) => selectUserById(state, noteId));
+  const note = useSelector((state) => selectNoteById(state, noteId));
 
   const navigate = useNavigate();
 
@@ -34,7 +32,7 @@ const Note = ({ noteId }) => {
             <span className="note__status--open">Open</span>
           )}
         </td>
-        <td className="table__cell note_created">{created}</td>
+        <td className="table__cell note__created">{created}</td>
         <td className="table__cell note__updated">{updated}</td>
         <td className="table__cell note__title">{note.title}</td>
         <td className="table__cell note__username">{note.username}</td>
@@ -48,5 +46,4 @@ const Note = ({ noteId }) => {
     );
   } else return null;
 };
-
 export default Note;

@@ -1,6 +1,9 @@
 import { Router } from "express";
 const router = Router();
 import usersController from "../controllers/usersController.js";
+import verifyJWT from "../middleware/verifyJWT.js";
+
+router.use(verifyJWT);
 
 router
   .route("/")

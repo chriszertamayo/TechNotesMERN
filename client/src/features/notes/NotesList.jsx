@@ -1,4 +1,5 @@
 import { useGetNotesQuery } from "./notesApiSlice";
+import Note from "./Note";
 
 const NotesList = () => {
   const {
@@ -7,9 +8,14 @@ const NotesList = () => {
     isSuccess,
     isError,
     error,
-  } = useGetNotesQuery();
+  } = useGetNotesQuery("notesList", {
+    pollingInterval: 15000,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
+  });
 
   let content;
+
   if (isLoading) content = <p>Loading...</p>;
 
   if (isError) {
@@ -26,7 +32,7 @@ const NotesList = () => {
     content = (
       <table className="table table--notes">
         <thead className="table__thead">
-          <try>
+          <tr>
             <th scope="col" className="table__th note__status">
               Username
             </th>
@@ -43,9 +49,9 @@ const NotesList = () => {
               Owner
             </th>
             <th scope="col" className="table__th note__edit">
-              Title
+              Edit
             </th>
-          </try>
+          </tr>
         </thead>
         <tbody>{tableContent}</tbody>
       </table>
@@ -54,5 +60,4 @@ const NotesList = () => {
 
   return content;
 };
-
 export default NotesList;

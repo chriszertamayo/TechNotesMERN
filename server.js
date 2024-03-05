@@ -12,9 +12,10 @@ import cors from "cors";
 import corsOptions from "./config/corsOptions.js";
 import connectDB from "./config/dbConn.js";
 import mongoose from "mongoose";
-
-import root from "./routes/route.js";
+import root from "./routes/root.js";
+import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import noteRoutes from "./routes/noteRoutes.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -35,7 +36,10 @@ app.use(cookieParser());
 app.use("/", express.static(path.join(__dirname, "/public")));
 
 app.use("/", root);
+
+app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
+app.use("/notes", noteRoutes);
 
 app.all("*", (req, res) => {
   res.status(404);
